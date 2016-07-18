@@ -18,6 +18,9 @@ class Map:
     def del_object(self, key):
         self.__object_list.pop(key)
 
+    def get_object(self, key):
+        return self.__object_list[key]
+
     def update(self, time_difference):
         for key in self.__object_list.keys():
             if type(self.__object_list[key]) == object.MovingObject:
@@ -25,6 +28,7 @@ class Map:
 
     def __len__(self):
         return len(self.__object_list)
+
 
 if __name__ == "__main__":
     print(__file__, "not executable file")

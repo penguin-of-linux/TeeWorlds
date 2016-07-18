@@ -1,0 +1,1 @@
+UPDATE_TIME = 1 / 30 # milliseconds

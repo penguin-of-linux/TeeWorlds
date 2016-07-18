@@ -1,4 +1,3 @@
-
 class Object:
     '''Class to manipulate all game units'''
     @staticmethod
@@ -18,25 +17,26 @@ class Object:
             return True
         return False
 
-    def __init__(self, cords=(0, 0), size=(0, 0)):
-        if not Object.is_pair_type(cords):
-            self.__cords = (0, 0)
-            raise TypeError("cords parameter should have type tuple with size = 2 at least")
+    def __init__(self, position=(0, 0), size=(0, 0)):
+        if not Object.is_pair_type(position):
+            self.__position = (0, 0)
+            raise TypeError("position parameter should have type tuple with size = 2 at least")
 
         if not Object.is_pair_type(size):
             self.__size = (0, 0)
             raise TypeError("size parameter should have type tuple with size = 2 at least")
 
-        self.__cords = cords
+        self.__position = position
         self.__size = size
 
-    def get_cords(self):
-        return self.__cords
+    def get_position(self):
+        return self.__position
 
-    def set_cords(self, cords):
-        if not Object.is_pair_type(cords):
-            raise TypeError("cords parameter should have type tuple with size = 2 at least")
-        self.__cords = cords
+    def set_position(self, position):
+        """position - (x, y)"""
+        if not Object.is_pair_type(position):
+            raise TypeError("position parameter should have type tuple with size = 2 at least")
+        self.__position = position
 
     def get_size(self):
         return self.__size
@@ -46,17 +46,17 @@ class Object:
             raise TypeError("size parameter should have type tuple with size = 2 at least")
         self.__size = size
 
-    def has_crossing(self, ob):
+    def is_crossing(self, ob):
         if not isinstance(ob, Object):
             raise TypeError("ob parameter should have type Object")
 
         # watch crossing for x-axis and y-axis
 
-        x_segment1 = (self.__cords[0], self.__cords[0] + self.__size[0])
-        x_segment2 = (ob.__cords[0], ob.__cords[0] + ob.__size[0])
+        x_segment1 = (self.__position[0], self.__position[0] + self.__size[0])
+        x_segment2 = (ob.__position[0], ob.__position[0] + ob.__size[0])
 
-        y_segment1 = (self.__cords[1] - self.__size[1], self.__cords[1])
-        y_segment2 = (ob.__cords[1] - ob.__size[1], ob.__cords[1])
+        y_segment1 = (self.__position[1] - self.__size[1], self.__position[1])
+        y_segment2 = (ob.__position[1] - ob.__size[1], ob.__position[1])
 
         x_axis = Object.is_segment_cross(x_segment1, x_segment2)
         y_axis = Object.is_segment_cross(y_segment1, y_segment2)
@@ -65,12 +65,12 @@ class Object:
 
 
 class StaticObject(Object):
-    def __init__(self, cords=(0, 0), size=(0, 0)):
-        Object.__init__(cords, size)
+    def __init__(self, position=(0, 0), size=(0, 0)):
+        super().__init__(position, size)
 
 
 class MovingObject(Object):
-    def __init__(self, cords=(0, 0), size=(0, 0), velocity=(0, 0), accelerate=(0, 0)):
+    def __init__(self, position=(0, 0), size=(0, 0), velocity=(0, 0), accelerate=(0, 0)):
         if not Object.is_pair_type(velocity):
             self.__velocity = (0, 0)
             raise TypeError("velocity parameter should have tuple type with size = 2 at least")
@@ -81,7 +81,7 @@ class MovingObject(Object):
 
         self.__velocity = velocity
         self.__accelerate = accelerate
-        Object.__init__(self, cords, size)
+        super().__init__(self, position, size)
 
     def get_velocity(self):
         return self.__velocity
@@ -104,8 +104,8 @@ class MovingObject(Object):
         self.__velocity[0] += self.__accelerate[0] * time_difference
         self.__velocity[1] += self.__accelerate[1] * time_difference
 
-        self.__cords[0] += self.__velocity[0] * time_difference
-        self.__cords[1] += self.__velocity[1] * time_difference
+        self.__position[0] += self.__velocity[0] * time_difference
+        self.__position[1] += self.__velocity[1] * time_difference
 
 
 if __name__ == "__main__":

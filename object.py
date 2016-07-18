@@ -100,7 +100,7 @@ class MovingObject(Object):
 
         self.__accelerate = accelerate
 
-    def update(self, time_difference):
+    def update_position(self, time_difference):
         self.__velocity[0] += self.__accelerate[0] * time_difference
         self.__velocity[1] += self.__accelerate[1] * time_difference
 
@@ -110,4 +110,4 @@ class MovingObject(Object):
 
 if __name__ == "__main__":
     print(__file__, "not executable file")
-    
+

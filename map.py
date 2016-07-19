@@ -21,10 +21,10 @@ class Map:
     def get_object(self, key):
         return self.__object_list[key]
 
-    def update(self, time_difference):
-        for key in self.__object_list.keys():
-            if type(self.__object_list[key]) == object.MovingObject:
-                self.__object_list[key].update_position(time_difference)
+    #def update(self, key, time_difference = 1):
+        #for key in self.__object_list.keys():
+            #if type(self.__object_list[key]) == object.MovingObject:
+                #return self.__object_list[key].update_position(time_difference)
 
     def __len__(self):
         return len(self.__object_list)

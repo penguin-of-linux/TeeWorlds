@@ -24,11 +24,11 @@ class GameManager():
         GameManager.keys.append(key)
         return key
 
-    @staticmethod
-    def set_object_position(key, position):
-        """position - (x, y)"""
-        GameManager.__map.get_object(key).set_position(position)
-        GameManager.__main_window.set_object_position(key, position)
+    #@staticmethod
+    #def set_object_position(key, position):
+    #    """position - (x, y)"""
+    #    GameManager.__map.get_object(key).set_position(position)
+    #    GameManager.__main_window.set_object_position(key, position)
 
     @staticmethod
     def get_object(key):

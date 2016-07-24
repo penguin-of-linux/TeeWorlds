@@ -1,7 +1,9 @@
 import map
-import object
+import const
 import main_window
 import threading
+import object
+import sys
 
 
 class GameManager():
@@ -18,7 +20,7 @@ class GameManager():
     @staticmethod
     def create_object(obj):
         key = GameManager.__map.add_object(obj)
-        GameManager.__main_window.add_object(key)
+        #GameManager.__main_window.add_object(key)
         GameManager.keys.append(key)
         return key
 
@@ -33,14 +35,28 @@ class GameManager():
         return GameManager.__map.get_object(key)
 
     @staticmethod
-    def update():
-        print("Update")
+    def get_all_objects():
         for key in GameManager.keys:
-            GameManager.__main_window.set_object_position(key,
-            GameManager.__map.get_object(key).update_position())
+            yield GameManager.get_object(key)
 
-        GameManager.update_timer = threading.Timer(1.0, GameManager.update)
+    @staticmethod
+    def update():
+        #print("Update")
+        for key in GameManager.keys:
+            #GameManager.__main_window.set_object_position(key,
+            GameManager.__map.get_object(key).update_position()
+
+        GameManager.__main_window.update()
+
+        GameManager.update_timer = threading.Timer(const.UPDATE_TIME, GameManager.update)
         GameManager.update_timer.start()
+
+    @staticmethod
+    def exit():
+        GameManager.update_timer.cancel()
+        GameManager.__main_window.app.closeAllWindows()
+        GameManager.__main_window.app.exit(0)
+        sys.exit("finished epta")
 
     @staticmethod
     def start():

@@ -1,10 +1,10 @@
 from game_manager import GameManager
 import object
+import threading
 
 
 #if __name__ == "__main__":
 GameManager.init()
-key = GameManager.create_object(object.MovingObject())
-GameManager.set_object_position(key, (30, 100))
-GameManager.get_object(key).set_velocity((5, 5))
+#key = GameManager.create_object(object.MovingObject())
+#GameManager.get_object(key).set_accelerate((1, 1))
 GameManager.start()

@@ -1,7 +1,10 @@
 import sys
+import game_manager
+import object
 import const
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QWidget, QApplication
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QPainter
+from PyQt5.QtCore import Qt, pyqtSignal
 
 class MainWindow(QWidget):
 
@@ -10,18 +13,24 @@ class MainWindow(QWidget):
         self.init()
 
     def init(self):
-        self.objects = {}
+        self.setGeometry(0, 0, 1376, 768)
 
-    def add_object(self, key):
-        obj = self.objects[key] = QLabel("", self)
-        obj.setPixmap(QPixmap("gimp_gimp.png"))
+    def paintEvent(self, QPaintEvent):
+        qp = QPainter()
+        qp.begin(self)
+        for obj in game_manager.GameManager.get_all_objects():
+            pos = obj.get_position()
+            qp.drawRect(pos[0], pos[1], 64, 64)
+        qp.end()
 
 
-    def get_object(self, key):
-        return self.objects[key]
+    def keyPressEvent(self, event):
 
-    def set_object_position(self, key, position):
-        self.objects[key].move(position[0], position[1])
+        if event.key() == Qt.Key_F:
+            print("prost")
+            game_manager.GameManager.create_object(object.MovingObject(velocity = (3, 3)))
+        if event.key() == Qt.Key_Escape:
+            game_manager.GameManager.exit()
 
 
 def create_main_window():

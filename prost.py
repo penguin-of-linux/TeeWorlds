@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QMainWindow, QApplication
-from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QPainter, QPixmap
 from PyQt5.QtCore import Qt
 
 
@@ -18,11 +18,12 @@ class Prost(QMainWindow):
         self.show()
 
     def paintEvent(self, QPaintEvent):
+        pm = QPixmap("gimp_gimp.png")
         qp = QPainter()
         qp.begin(self)
         qp.setPen(Qt.red)
         for e in self.prost:
-            qp.drawPoint(e[0], e[1])
+            qp.drawPixmap(e[0], e[1], 1, 1, pm)
         qp.end()
 
     def keyPressEvent(self, QKeyEvent):

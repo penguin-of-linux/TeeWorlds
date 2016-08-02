@@ -1,1 +1,6 @@
-UPDATE_TIME = 1 / 30 # milliseconds
+UPDATE_TIME = 1 / 60# milliseconds
+FPS = 1 / 60# milliseconds
+MAX_SPEED_X = 4
+MAX_SPEED_Y = 10
+START_PLAYER_POSITION = (782, 384)
+GRAVITATION = 1

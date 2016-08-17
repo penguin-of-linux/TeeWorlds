@@ -1,16 +1,17 @@
 import unittest
 import object
+from geometry import is_segment_cross
 
 
 class ObjectTest(unittest.TestCase):
 
     def test_segment_crossing(self):
-        self.assertEquals(object.Object.is_segment_cross((0, 1), (3, 4)), False)
-        self.assertEquals(object.Object.is_segment_cross((-5, 5), (-1, 1)), True)
-        self.assertEquals(object.Object.is_segment_cross((0, 1), (0, 0.5)), True)
-        self.assertEquals(object.Object.is_segment_cross((-100, -50), (100, 100500)), False)
-        self.assertEquals(object.Object.is_segment_cross((0, 0), (0, 0)), True)
-        self.assertEquals(object.Object.is_segment_cross((-100, -50), (-50, 100)), True)
+        self.assertEquals(is_segment_cross((0, 1), (3, 4)), False)
+        self.assertEquals(is_segment_cross((-5, 5), (-1, 1)), True)
+        self.assertEquals(is_segment_cross((0, 1), (0, 0.5)), True)
+        self.assertEquals(is_segment_cross((-100, -50), (100, 100500)), False)
+        self.assertEquals(is_segment_cross((0, 0), (0, 0)), True)
+        self.assertEquals(is_segment_cross((-100, -50), (-50, 100)), True)
 
     def test_crossing(self):
         ob2 = object.Object((0, 0), (10, 10))
